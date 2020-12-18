@@ -1,26 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import {Header} from "./components/Header/Header";
+import {Navbar} from "./components/Navbar/Navbar";
+import {Profile} from "./components/Profile/Profile";
+import {Dialogs} from "./components/Dialogs/Dialogs";
+import {Route} from "react-router-dom";
+import store, {DialogsType, MessagesType, PostsType, RootStateType} from "./redux/state";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+type StatePropsType = {
+    posts: Array<PostsType>
+    dialogs: Array<DialogsType>
+    messages: Array<MessagesType>
+    newPostText: string
+    addPost: (postText: string) => void
+    updateNewPostText: (newText: string) => void
+
 }
 
-export default App;
+export function App(props: StatePropsType) {
+    return (
+        <div className="app-wrapper">
+            <Header/>
+            <Navbar/>
+            <div className="app-wrapper-content">
+                {/*<Route path='/dialogs' render={() => <Dialogs dialogs={props.dialogs} messages={props.messages} />}/>*/}
+                {/*<Route path='/profile' render={() => <Profile posts={props.posts}/>}/>*/}
+                <Route
+                    path="/dialogs"
+                    render={() => <Dialogs
+                        dialogs={props.dialogs}
+                        messages={props.messages}
+                    />}
+                />
+                <Route
+                    path="/profile"
+                    render={() => (
+                        <Profile
+                            posts={props.posts}
+                            newPostText={props.newPostText}
+                            addPost={props.addPost}
+                            updateNewPostText={props.updateNewPostText}
+                        />
+                    )}
+                />
+            </div>
+        </div>
+    );
+}
