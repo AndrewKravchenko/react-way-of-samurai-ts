@@ -14,7 +14,6 @@ export const rerenderEntireTree = () => {
                 messages={store._state.dialogsPagegs.messages}
                 dispatch={store.dispatch.bind(store)}
                 newPostText={store._state.profilePage.newPostText}
-                // updateNewPostText={store.updateNewPostText.bind(store)}
             />
         </BrowserRouter>, document.getElementById("root"));
 };

@@ -6,8 +6,7 @@ import {Profile} from "./components/Profile/Profile";
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import {Route} from "react-router-dom";
 import store, {
-    AddPostActionType,
-    ChangeNewTextPostActionType,
+    ActionTypes,
     DialogsType,
     MessagesType,
     PostsType,
@@ -19,9 +18,7 @@ type StatePropsType = {
     dialogs: Array<DialogsType>
     messages: Array<MessagesType>
     newPostText: string
-    // addPost: (postText: string) => void
-    // updateNewPostText: (newText: string) => void
-    dispatch: (action: AddPostActionType | ChangeNewTextPostActionType) => void
+    dispatch: (action: ActionTypes) => void
 }
 
 export function App(props: StatePropsType) {
@@ -46,7 +43,6 @@ export function App(props: StatePropsType) {
                             posts={props.posts}
                             newPostText={props.newPostText}
                             dispatch={props.dispatch}
-                            // updateNewPostText={props.updateNewPostText}
                         />
                     )}
                 />
