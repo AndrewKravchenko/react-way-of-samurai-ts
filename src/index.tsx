@@ -12,9 +12,9 @@ export const rerenderEntireTree = () => {
                 posts={store._state.profilePage.posts}
                 dialogs={store._state.dialogsPagegs.dialogs}
                 messages={store._state.dialogsPagegs.messages}
-                addPost={store.addPost.bind(store)}
+                dispatch={store.dispatch.bind(store)}
                 newPostText={store._state.profilePage.newPostText}
-                updateNewPostText={store.updateNewPostText.bind(store)}
+                // updateNewPostText={store.updateNewPostText.bind(store)}
             />
         </BrowserRouter>, document.getElementById("root"));
 };

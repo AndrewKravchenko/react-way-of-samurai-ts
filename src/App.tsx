@@ -5,16 +5,23 @@ import {Navbar} from "./components/Navbar/Navbar";
 import {Profile} from "./components/Profile/Profile";
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import {Route} from "react-router-dom";
-import store, {DialogsType, MessagesType, PostsType, RootStateType} from "./redux/state";
+import store, {
+    AddPostActionType,
+    ChangeNewTextPostActionType,
+    DialogsType,
+    MessagesType,
+    PostsType,
+    RootStateType
+} from "./redux/state";
 
 type StatePropsType = {
     posts: Array<PostsType>
     dialogs: Array<DialogsType>
     messages: Array<MessagesType>
     newPostText: string
-    addPost: (postText: string) => void
-    updateNewPostText: (newText: string) => void
-
+    // addPost: (postText: string) => void
+    // updateNewPostText: (newText: string) => void
+    dispatch: (action: AddPostActionType | ChangeNewTextPostActionType) => void
 }
 
 export function App(props: StatePropsType) {
@@ -38,8 +45,8 @@ export function App(props: StatePropsType) {
                         <Profile
                             posts={props.posts}
                             newPostText={props.newPostText}
-                            addPost={props.addPost}
-                            updateNewPostText={props.updateNewPostText}
+                            dispatch={props.dispatch}
+                            // updateNewPostText={props.updateNewPostText}
                         />
                     )}
                 />
