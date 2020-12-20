@@ -7,18 +7,15 @@ import {Dialogs} from "./components/Dialogs/Dialogs";
 import {Route} from "react-router-dom";
 import store, {
     ActionTypes,
-    DialogsType,
-    MessagesType,
     PostsType,
-    RootStateType
+    RootStateType, StoreType
 } from "./redux/state";
 
 type StatePropsType = {
     posts: Array<PostsType>
-    dialogs: Array<DialogsType>
-    messages: Array<MessagesType>
     newPostText: string
     dispatch: (action: ActionTypes) => void
+    store: StoreType
 }
 
 export function App(props: StatePropsType) {
@@ -27,13 +24,10 @@ export function App(props: StatePropsType) {
             <Header/>
             <Navbar/>
             <div className="app-wrapper-content">
-                {/*<Route path='/dialogs' render={() => <Dialogs dialogs={props.dialogs} messages={props.messages} />}/>*/}
-                {/*<Route path='/profile' render={() => <Profile posts={props.posts}/>}/>*/}
                 <Route
                     path="/dialogs"
                     render={() => <Dialogs
-                        dialogs={props.dialogs}
-                        messages={props.messages}
+                        store={store}
                     />}
                 />
                 <Route

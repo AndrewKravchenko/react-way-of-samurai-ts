@@ -10,10 +10,9 @@ export const rerenderEntireTree = () => {
         <BrowserRouter>
             <App
                 posts={store._state.profilePage.posts}
-                dialogs={store._state.dialogsPagegs.dialogs}
-                messages={store._state.dialogsPagegs.messages}
                 dispatch={store.dispatch.bind(store)}
                 newPostText={store._state.profilePage.newPostText}
+                store={store}
             />
         </BrowserRouter>, document.getElementById("root"));
 };
