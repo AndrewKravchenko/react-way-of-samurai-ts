@@ -6,15 +6,15 @@ import {Profile} from "./components/Profile/Profile";
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import {Route} from "react-router-dom";
 import store, {
-    ActionTypes,
     PostsType,
     RootStateType, StoreType
 } from "./redux/state";
+import {PostActionTypes} from "./redux/profile-reducer";
 
 type StatePropsType = {
     posts: Array<PostsType>
     newPostText: string
-    dispatch: (action: ActionTypes) => void
+    dispatch: (action: PostActionTypes) => void
     store: StoreType
 }
 
