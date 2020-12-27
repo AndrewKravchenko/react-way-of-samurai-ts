@@ -12,7 +12,15 @@ export type ChangeNewTextPostActionType = {
 }
 export type PostActionTypes = AddPostActionType | ChangeNewTextPostActionType
 
-const profileReducer = (state: ProfilePageType, action: ActionTypes) => {
+let initialState = {
+    posts: [
+        {id: 1, message: "Hi, how are you?", likesCount: 12},
+        {id: 2, message: "It's my first post?", likesCount: 11},
+    ],
+    newPostText: "it-camasutra.com",
+}
+
+const profileReducer = (state: ProfilePageType = initialState, action: ActionTypes) => {
     switch (action.type) {
         case ADD_POST:
             let newPost = {
