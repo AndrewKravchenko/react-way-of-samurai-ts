@@ -10,10 +10,6 @@ export const rerenderEntireTree = (state: any) => {
     ReactDOM.render(
         <BrowserRouter>
             <App
-                // posts={store._state.profilePage.posts}
-                // dispatch={store.dispatch.bind(store)}
-                // newPostText={store._state.profilePage.newPostText}
-                // store={store}
                 posts={store.getState().profilePage.posts}
                 dispatch={store.dispatch.bind(store)}
                 newPostText={store.getState().profilePage.newPostText}
@@ -21,8 +17,6 @@ export const rerenderEntireTree = (state: any) => {
             />
         </BrowserRouter>, document.getElementById("root"));
 };
-// rerenderEntireTree();
-// store.subscribe(rerenderEntireTree);
 
 rerenderEntireTree(store.getState());
 
