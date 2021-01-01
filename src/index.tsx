@@ -3,25 +3,21 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import {App} from "./App";
-import { BrowserRouter } from "react-router-dom";
+import {BrowserRouter} from "react-router-dom";
+import {Provider} from "./StoreContext";
 
-export const rerenderEntireTree = (state: any) => {
+export const rerenderEntireTree = () => {
 
     ReactDOM.render(
         <BrowserRouter>
-            <App
-                posts={store.getState().profilePage.posts}
-                dispatch={store.dispatch.bind(store)}
-                newPostText={store.getState().profilePage.newPostText}
-                store={store}
-            />
+            <Provider store={store}>
+                <App/>
+            </Provider>
         </BrowserRouter>, document.getElementById("root"));
 };
 
-rerenderEntireTree(store.getState());
+rerenderEntireTree();
 
 store.subscribe(() => {
-
-    let state = store.getState()
-    rerenderEntireTree(state)
+    rerenderEntireTree()
 });
