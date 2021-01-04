@@ -4,6 +4,7 @@ import sidebarReducer from "./sidebar-reducer";
 import profileReducer from "./profile-reducer";
 
 export type ReduxStoreType = typeof store
+export type StateType = ReturnType<typeof reducers>
 
 let reducers = combineReducers({
     profilePage: profileReducer,
