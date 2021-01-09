@@ -15,12 +15,17 @@ export type  SetUsersACType = {
     users: Array<UsersType>
 }
 export type UsersType = {
-    id: number,
-    photoUrl: string,
-    followed: boolean,
-    fullName: string,
-    status: string,
-    location: {
+    id: number
+    photoUrl?: string
+    followed: boolean
+    name: string
+    status: string | null
+    uniqueUrlName: string | null
+    photos: {
+        small: string | null
+        large: string | null
+    }
+    location?: {
         city: string,
         country: string
     }
