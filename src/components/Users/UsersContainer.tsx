@@ -1,4 +1,4 @@
-import React, {Dispatch} from 'react'
+import React from 'react'
 import {Users} from "./Users";
 import {connect} from "react-redux";
 import {
@@ -28,7 +28,8 @@ type UsersContainerType = {
     isFetching: boolean
     toggleIsFetching: (isFetching: boolean) => void
 }
-type AxiosType = {
+
+type AxiosUsersType = {
     error: null | string
     items: UsersType[]
     totalCount: number
@@ -37,7 +38,7 @@ type AxiosType = {
 export class UsersContainer extends React.Component<UsersContainerType> {
     componentDidMount() {
         this.props.toggleIsFetching(true)
-        axios.get<AxiosType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+        axios.get<AxiosUsersType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
             .then(response => {
                 this.props.toggleIsFetching(false)
                 this.props.setUsers(response.data.items)
@@ -48,7 +49,7 @@ export class UsersContainer extends React.Component<UsersContainerType> {
     onPageChanged = (pageNumber: number) => {
         this.props.setCurrentPage(pageNumber)
         this.props.toggleIsFetching(true)
-        axios.get<AxiosType>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+        axios.get<AxiosUsersType>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
             .then(response => {
                 this.props.toggleIsFetching(false)
                 this.props.setUsers(response.data.items)
