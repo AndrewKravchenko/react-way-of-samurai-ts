@@ -6,11 +6,24 @@ import {Preloader} from "../common/Proloader/Preloader";
 import {Header} from "./Header";
 import {StateType} from "../../redux/redux-store";
 
-class HeaderContainer extends React.Component<any> {
+type HeaderContainerType = {
+    toggleIsFetching: (isFetching: boolean) => void
+    setAuthUserData: (userId: number | null, email: string | null, login: string | null) => void
+    isFetching: boolean
+}
+type AxiosHeaderType = {
+    resultCode: number
+    messages: string
+    data: {
+        id: number | null
+        email: string | null
+        login: string | null
+    }
+}
+class HeaderContainer extends React.Component<HeaderContainerType> {
     componentDidMount() {
-        debugger
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
+        axios.get<AxiosHeaderType>(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
             withCredentials: true
         })
             .then(response => {
