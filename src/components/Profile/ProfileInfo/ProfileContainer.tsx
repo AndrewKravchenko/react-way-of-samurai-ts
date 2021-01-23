@@ -6,11 +6,6 @@ import {ProfileType, setUserProfile} from "../../../redux/profile-reducer";
 import {StateType} from "../../../redux/redux-store";
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 
-type ProfileContainerType = {
-    setUserProfile: (profile: ProfileType) => void
-    profile: ProfileType | null
-    userId: number
-}
 type PathParamsType = {
     userId: string
 }
