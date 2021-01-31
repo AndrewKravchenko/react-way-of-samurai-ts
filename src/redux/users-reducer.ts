@@ -1,3 +1,6 @@
+import {usersAPI} from "../api/api";
+import {ThunkReducerType} from "../types/entities";
+
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
@@ -126,8 +129,8 @@ export const usersReducer = (state: UsersStateReducerType = initialState, action
     }
 }
 
-export const follow = (userId: number): FollowACType => ({type: FOLLOW, userId})
-export const unfollow = (userId: number): UnfollowACType => ({type: UNFOLLOW, userId})
+export const followSuccess = (userId: number): FollowACType => ({type: FOLLOW, userId})
+export const unfollowSuccess = (userId: number): UnfollowACType => ({type: UNFOLLOW, userId})
 export const setUsers = (users: UsersType[]): SetUsersACType => ({type: SET_USERS, users})
 export const setCurrentPage = (currentPage: number): SetCurrentPageACType => ({type: SET_CURRENT_PAGE, currentPage})
 export const setTotalUsersCount = (totalUsersCount: number): SetTotalUsersCountACType => ({
@@ -145,3 +148,40 @@ export const toggleFollowingProgress = (isFetching: boolean, userId: number): To
     isFetching,
     userId
 })
+
+export const getUsers = (currentPage: number, pageSize: number): ThunkReducerType => {
+    return (dispatch) => {
+        dispatch(toggleIsFetching(true))
+        usersAPI.getUsers(currentPage, pageSize)
+            .then(data => {
+                dispatch(toggleIsFetching(false))
+                dispatch(setUsers(data.items))
+                dispatch(setTotalUsersCount(data.totalCount))
+                dispatch(setCurrentPage(currentPage))
+            })
+    }
+}
+export const follow = (userId: number): ThunkReducerType => {
+    return (dispatch) => {
+        dispatch(toggleFollowingProgress(true, userId))
+        usersAPI.follow(userId)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(followSuccess(userId))
+                }
+                dispatch(toggleFollowingProgress(false, userId))
+            })
+    }
+}
+export const unfollow = (userId: number): ThunkReducerType => {
+    return (dispatch) => {
+        dispatch(toggleFollowingProgress(true, userId))
+        usersAPI.unfollow(userId)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(unfollowSuccess(userId))
+                }
+                dispatch(toggleFollowingProgress(false, userId))
+            })
+    }
+}

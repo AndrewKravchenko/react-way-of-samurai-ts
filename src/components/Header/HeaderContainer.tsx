@@ -1,15 +1,14 @@
 import React from 'react';
-import axios from "axios";
 import {connect} from "react-redux";
-import {setAuthUserData, toggleIsFetching} from "../../redux/auth-reducer";
+import {getAuthUserData} from "../../redux/auth-reducer";
 import {Preloader} from "../common/Proloader/Preloader";
 import {Header} from "./Header";
 import {StateType} from "../../redux/redux-store";
-import {authMe} from "../../api/api";
 
 type HeaderContainerType = {
-    toggleIsFetching: (isFetching: boolean) => void
-    setAuthUserData: (userId: number | null, email: string | null, login: string | null) => void
+    // toggleIsFetching: (isFetching: boolean) => void
+    // setAuthUserData: (userId: number | null, email: string | null, login: string | null) => void
+    getAuthUserData: () => void
     isFetching: boolean
 }
 type AxiosHeaderType = {
@@ -23,7 +22,7 @@ type AxiosHeaderType = {
 }
 class HeaderContainer extends React.Component<HeaderContainerType> {
     componentDidMount() {
-        this.props.toggleIsFetching(true)
+        // this.props.toggleIsFetching(true)
 
         // axios.get<AxiosHeaderType>(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
         //     withCredentials: true
@@ -36,14 +35,15 @@ class HeaderContainer extends React.Component<HeaderContainerType> {
         //         }
         //     })
 
-        authMe.get()
-            .then(data => {
-                if (data.resultCode === 0) {
-                    this.props.toggleIsFetching(false)
-                    let {id, email, login} = data.data
-                    this.props.setAuthUserData(id, email, login)
-                }
-            })
+        // authMe.get()
+        //     .then(data => {
+        //         if (data.resultCode === 0) {
+        //             this.props.toggleIsFetching(false)
+        //             let {id, email, login} = data.data
+        //             this.props.setAuthUserData(id, email, login)
+        //         }
+        //     })
+        this.props.getAuthUserData()
     }
 
     render() {
@@ -62,6 +62,7 @@ const mapStateToProps = (state: StateType) => ({
 })
 
 export default connect(mapStateToProps, {
-    toggleIsFetching,
-    setAuthUserData
+    // toggleIsFetching,
+    // setAuthUserData,
+    getAuthUserData
 })(HeaderContainer);

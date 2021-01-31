@@ -1,4 +1,6 @@
 import {ActionTypes, ProfilePageType} from "./state";
+import {usersAPI} from "../api/api";
+import {ThunkReducerType} from "../types/entities";
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
@@ -76,3 +78,11 @@ export const addPostActionCreator = (): AddPostActionType => ({type: ADD_POST})
 export const setUserProfile = (profile: ProfileType):SetUserProfileActionType => ({type: SET_USER_PROFILE, profile})
 export const updateNewPostTextActionCreator = (text: string): ChangeNewTextPostActionType =>
     ({type: UPDATE_NEW_POST_TEXT, newText: text})
+
+export const getUserProfile = (userId: number): ThunkReducerType =>
+    (dispatch) => {
+        usersAPI.getProfile(userId)
+            .then(data => {
+                dispatch(setUserProfile(data))
+            })
+    }
