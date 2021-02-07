@@ -4,8 +4,9 @@ import {Navbar} from "./components/Navbar/Navbar";
 import {Route} from "react-router-dom";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
-import ProfileContainer from "./components/Profile/ProfileInfo/ProfileContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import {Login} from "./Login/Login";
 
 
 export function App() {
@@ -20,6 +21,8 @@ export function App() {
                        render={() => (<ProfileContainer/>)}/>
                 <Route path="/users"
                        render={() => <UsersContainer/>}/>
+                <Route path="/login"
+                       render={() => <Login/>}/>
             </div>
         </div>
     );

@@ -3,26 +3,22 @@ import {Users} from "./Users";
 import {connect} from "react-redux";
 import {
     follow, getUsers,
-    setCurrentPage,
-    toggleFollowingProgress,
     unfollow,
     UsersStateReducerType,
     UsersType
 } from "../../redux/users-reducer";
 import {StateType} from "../../redux/redux-store";
 import {Preloader} from "../common/Proloader/Preloader";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 type UsersContainerType = {
     users: UsersType[],
     follow: (userId: number) => void
     unfollow: (userId: number) => void
-    // setUsers: (users: UsersType[]) => void
-    // setTotalUsersCount: (totalCount: number) => void
     pageSize: number
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
-    // toggleIsFetching: (isFetching: boolean) => void
     followingInProgress: Array<number>
     getUsers: (currentPage: number, pageSize: number) => void
 }
@@ -30,12 +26,6 @@ export type MapDispatchType = {
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     getUsers: (currentPage: number, pageSize: number) => void
-}
-
-type AxiosUsersType = {
-    error: null | string
-    items: UsersType[]
-    totalCount: number
 }
 
 export class UsersContainer extends React.Component<UsersContainerType> {
@@ -97,8 +87,9 @@ let mapStateToProps = (state: StateType): UsersStateReducerType => {
 //         }
 //     }
 // }
+let withRedirect = withAuthRedirect(UsersContainer)
 
 export default connect<UsersStateReducerType, MapDispatchType, {}, StateType>(mapStateToProps,
     {
         follow, unfollow, getUsers
-    })(UsersContainer)
+    })(withRedirect)

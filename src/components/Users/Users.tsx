@@ -22,7 +22,7 @@ export let Users:React.FC<UsersPropsType> = (props: UsersPropsType) => {
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
-    // @ts-ignore
+
     return <div>
         <div>
             {pages.map(p => {

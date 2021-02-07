@@ -8,9 +8,9 @@ import thunkMiddleware from "redux-thunk"
 
 
 export type ReduxStoreType = typeof store
-export type StateType = ReturnType<typeof reducers>
+export type StateType = ReturnType<typeof reducer>
 
-let reducers = combineReducers({
+let reducer = combineReducers({
     profilePage: profileReducer,
     dialogsPages: dialogsReducer,
     sidebar: sidebarReducer,
@@ -18,6 +18,6 @@ let reducers = combineReducers({
     auth: authReducer
 })
 
-let store = createStore(reducers, applyMiddleware(thunkMiddleware))
+let store = createStore(reducer, applyMiddleware(thunkMiddleware))
 
 export default store
