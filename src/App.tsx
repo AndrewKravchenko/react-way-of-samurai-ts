@@ -2,11 +2,11 @@ import React from "react";
 import "./App.css";
 import {Navbar} from "./components/Navbar/Navbar";
 import {Route} from "react-router-dom";
-import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
-import UsersContainer from "./components/Users/UsersContainer";
-import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import {Login} from "./Login/Login";
+import ProfileContainer from "./components/Profile/ProfileContainer";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import UsersContainer from "./components/Users/UsersContainer";
 
 
 export function App() {

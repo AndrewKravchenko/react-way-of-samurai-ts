@@ -4,6 +4,7 @@ import {getAuthUserData} from "../../redux/auth-reducer";
 import {Preloader} from "../common/Proloader/Preloader";
 import {Header} from "./Header";
 import {StateType} from "../../redux/redux-store";
+import {compose} from "redux";
 
 type HeaderContainerType = {
     // toggleIsFetching: (isFetching: boolean) => void
@@ -20,6 +21,7 @@ type AxiosHeaderType = {
         login: string | null
     }
 }
+
 class HeaderContainer extends React.Component<HeaderContainerType> {
     componentDidMount() {
         // this.props.toggleIsFetching(true)
@@ -60,9 +62,11 @@ const mapStateToProps = (state: StateType) => ({
     login: state.auth.login,
     isFetching: state.auth.isFetching
 })
-
-export default connect(mapStateToProps, {
-    // toggleIsFetching,
-    // setAuthUserData,
-    getAuthUserData
-})(HeaderContainer);
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {
+        getAuthUserData
+    })
+)(HeaderContainer)
+// export default connect(mapStateToProps, {
+//     getAuthUserData
+// })(HeaderContainer);
