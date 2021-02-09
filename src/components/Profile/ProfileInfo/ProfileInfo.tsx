@@ -6,6 +6,8 @@ import {ProfileStatus} from "./ProfileStatus";
 
 type ProfileInfoType = {
     profile: ProfileType | null
+    status: string
+    updateStatus: (status: string) => void
 }
 export const ProfileInfo = (props: ProfileInfoType) => {
     if (!props.profile) {
@@ -17,7 +19,9 @@ export const ProfileInfo = (props: ProfileInfoType) => {
         </div>
         <div className={cl.descriptionBlock}>
             <img src={props.profile.photos.large} alt={""}/>
-            <ProfileStatus status={"Hello bro!"}/>
+            <ProfileStatus status={props.status}
+                           updateStatus={props.updateStatus}
+            />
         </div>
     </div>
 }

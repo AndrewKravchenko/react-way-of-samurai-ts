@@ -6,11 +6,16 @@ import {ProfileType} from "../../redux/profile-reducer";
 
 type AxiosProfileType = {
     profile: ProfileType | null
-    }
+    status: string
+    updateStatus: (status: string) => void
+}
 
-export function Profile(props:AxiosProfileType) {
+export function Profile(props: AxiosProfileType) {
     return <div className={cl.profile}>
-        <ProfileInfo profile={props.profile}/>
+        <ProfileInfo profile={props.profile}
+                     status={props.status}
+                     updateStatus={props.updateStatus}
+        />
         <MyPostsContainer/>
     </div>
 }
