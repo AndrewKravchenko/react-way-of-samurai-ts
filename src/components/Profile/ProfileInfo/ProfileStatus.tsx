@@ -1,13 +1,16 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import cl from './ProfileInfo.module.css';
 import {RouteComponentProps} from "react-router-dom";
 
 type ProfileStatusType = {
     status: string
     updateStatus: (status: string) => void
+
 }
 
-export class ProfileStatus extends React.Component<ProfileStatusType> {
+type StateType = { editMode: boolean, status: string };
+
+export class ProfileStatus extends React.Component<ProfileStatusType, StateType> {
     state = {
         editMode: false,
         status: this.props.status
@@ -24,10 +27,17 @@ export class ProfileStatus extends React.Component<ProfileStatusType> {
         })
         this.props.updateStatus(this.state.status)
     }
-    onStatusChange = (e: any) => {
+    onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
         this.setState({
             status: e.currentTarget.value
         })
+    }
+    componentDidUpdate(prevProps: ProfileStatusType, prevState: StateType) {
+        if (prevProps.status !== this.props.status) {
+            this.setState({
+                status: this.props.status
+            })
+        }
     }
 
     render() {
