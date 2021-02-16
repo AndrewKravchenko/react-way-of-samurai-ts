@@ -24,13 +24,11 @@ let initialState = {
         {id: 4, message: "How are you?"},
         {id: 5, message: "E boy"},
         {id: 6, message: "see you soon"},
-    ],
-    newMessageBody: ''
+    ]
 }
 export const dialogsReducer = (state: DialogPageType = initialState, action: ActionTypes): DialogPageType => {
     switch (action.type) {
         case SEND_MESSAGE:
-            let body = state.newMessageBody
             return {
                 ...state,
                 messages: [...state.messages, {id: 6, message: action.newMessageBody}]

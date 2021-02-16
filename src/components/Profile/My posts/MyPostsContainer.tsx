@@ -8,7 +8,6 @@ import {ActionTypes} from "../../../redux/state";
 let mapStateToProps = (state:StateType) => {
     return {
         posts: state.profilePage.posts,
-        newPostText: state.profilePage.newPostText
     }
 }
 let mapDispatchToProps = (dispatch: (action: ActionTypes) => void) => {
@@ -20,5 +19,3 @@ let mapDispatchToProps = (dispatch: (action: ActionTypes) => void) => {
 }
 
 export const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
-
-
