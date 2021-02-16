@@ -3,12 +3,12 @@ import {profileAPI, usersAPI} from "../api/api";
 import {ThunkReducerType} from "../types/entities";
 
 const ADD_POST = 'ADD-POST'
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
 const SET_STATUS = 'SET_STATUS'
 
 export type  AddPostActionType = {
     type: 'ADD-POST'
+    newPostText: string
 }
 export type SetUserProfileActionType = {
     type: 'SET_USER_PROFILE',
@@ -17,10 +17,6 @@ export type SetUserProfileActionType = {
 export type SetStatusActionType = {
     type: 'SET_STATUS',
     status: string
-}
-export type ChangeNewTextPostActionType = {
-    type: 'UPDATE-NEW-POST-TEXT',
-    newText: string
 }
 export type ProfileType = {
     aboutMe: string
@@ -44,7 +40,6 @@ export type ProfileType = {
 }
 export type PostActionTypes =
     AddPostActionType
-    | ChangeNewTextPostActionType
     | SetUserProfileActionType
     | SetStatusActionType
 
@@ -53,7 +48,7 @@ let initialState = {
         {id: 1, message: "Hi, how are you?", likesCount: 12},
         {id: 2, message: "It's my first post?", likesCount: 11},
     ],
-    newPostText: "it-camasutra.com",
+    newPostText: "",
     profile: null,
     status: ""
 }
@@ -63,20 +58,14 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
         case ADD_POST: {
             let newPost = {
                 id: 7,
-                message: state.newPostText,
+                message: action.newPostText,
                 likesCount: 0,
             };
             return {
                 ...state,
                 posts: [...state.posts, newPost],
-                newPostText: ''
             }
         }
-        case UPDATE_NEW_POST_TEXT:
-            return {
-                ...state,
-                newPostText: action.newText
-            }
         case SET_STATUS:
             return {
                 ...state,
@@ -88,11 +77,9 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
             return state
     }
 }
-export const addPostActionCreator = (): AddPostActionType => ({type: ADD_POST})
+export const addPostActionCreator = (newPostText: string): AddPostActionType => ({type: ADD_POST, newPostText})
 export const setStatus = (status: string): SetStatusActionType => ({type: SET_STATUS, status})
 export const setUserProfile = (profile: ProfileType): SetUserProfileActionType => ({type: SET_USER_PROFILE, profile})
-export const updateNewPostTextActionCreator = (text: string): ChangeNewTextPostActionType =>
-    ({type: UPDATE_NEW_POST_TEXT, newText: text})
 
 export const getUserProfile = (userId: number): ThunkReducerType =>
     (dispatch) => {

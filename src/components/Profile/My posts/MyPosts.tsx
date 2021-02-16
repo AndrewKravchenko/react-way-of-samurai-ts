@@ -1,14 +1,17 @@
 import React from 'react';
 import cl from './MyPosts.module.css';
 import {Post, PostPropsType} from './Post/Post';
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 
 export type MyPostsPropsType = {
     posts: Array<PostPropsType>
     newPostText: string
-    addPost: ()=> void
-    updateNewPostText: (text: string)=> void
+    addPost: (newPostText: string) => void
 }
 
+export type FormDataType = {
+    newPostText: string
+}
 export const MyPosts = (props: MyPostsPropsType) => {
 
     let postsElements =
@@ -16,26 +19,15 @@ export const MyPosts = (props: MyPostsPropsType) => {
 
     let newPostElement = React.createRef<HTMLTextAreaElement>();
 
-    let onAddPost = () => {
-        props.addPost()
+    let onAddPost = (values: FormDataType) => {
+        props.addPost(values.newPostText)
     }
 
-    let onPostChange = () => {
-        let text = newPostElement.current ? newPostElement.current.value : "";
-        props.updateNewPostText(text)
-    }
 
     return <div className={cl.postsBlock}>
         <h3>My posts</h3>
         <div>
-            <div>
-                <textarea onChange={onPostChange}
-                          ref={newPostElement}
-                          value={props.newPostText}/>
-            </div>
-            <div>
-                <button onClick={onAddPost}>Add post</button>
-            </div>
+            <AddNewPostFormRedux onSubmit={onAddPost}/>
         </div>
         <div className={cl.posts}>
             {postsElements}
@@ -43,3 +35,15 @@ export const MyPosts = (props: MyPostsPropsType) => {
     </div>
 }
 
+const AddNewPostForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+    return <form onSubmit={props.handleSubmit}>
+        <div>
+            <Field component="textarea" name="newPostText" placeholder="Enter your post"/>
+        </div>
+        <div>
+            <button>Add post</button>
+        </div>
+    </form>
+}
+
+const AddNewPostFormRedux = reduxForm<FormDataType>({form: "ProfileAddNewPostForm"})(AddNewPostForm)

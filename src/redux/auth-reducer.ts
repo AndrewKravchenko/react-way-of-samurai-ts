@@ -5,9 +5,9 @@ const SET_USER_DATA = 'SET_USER_DATA'
 const TOGGLE_IS_FETCHING_FOR_AUTH = 'TOGGLE_IS_FETCHING_FOR_AUTH'
 export type PropsType = typeof initialState
 let initialState = {
-    id: null as number|null,
-    email: null as string|null,
-    login: null as string|null,
+    id: null as number | null,
+    email: null as string | null,
+    login: null as string | null,
     isAuth: false,
     isFetching: true
 }
