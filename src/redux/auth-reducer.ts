@@ -1,11 +1,13 @@
 import {authAPI} from "../api/api";
 import {ThunkReducerType} from "../types/entities";
+import {stopSubmit} from "redux-form";
+import {FormAction} from "redux-form/lib/actions";
 
 const SET_USER_DATA = 'SET_USER_DATA'
 const TOGGLE_IS_FETCHING_FOR_AUTH = 'TOGGLE_IS_FETCHING_FOR_AUTH'
 export type PropsType = typeof initialState
 let initialState = {
-    id: null as number | null,
+    userId: null as number | null,
     email: null as string | null,
     login: null as string | null,
     isAuth: false,
@@ -61,6 +63,9 @@ export const login = (email: string, password: string, rememberMe: boolean): Thu
                 if (data.resultCode === 0) {
                     dispatch(toggleIsFetching(false))
                     dispatch(getAuthUserData())
+                } else {
+                    let message = data.messages.length > 0 ? data.messages[0] : "Some error"
+                    dispatch(stopSubmit("login", {_error: message}))
                 }
             })
     }
