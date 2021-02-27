@@ -1,7 +1,6 @@
 import {authAPI} from "../api/api";
 import {ThunkReducerType} from "../types/entities";
 import {stopSubmit} from "redux-form";
-import {FormAction} from "redux-form/lib/actions";
 
 const SET_USER_DATA = 'SET_USER_DATA'
 const TOGGLE_IS_FETCHING_FOR_AUTH = 'TOGGLE_IS_FETCHING_FOR_AUTH'
