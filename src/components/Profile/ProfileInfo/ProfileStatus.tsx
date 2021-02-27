@@ -5,7 +5,6 @@ import {RouteComponentProps} from "react-router-dom";
 type ProfileStatusType = {
     status: string
     updateStatus: (status: string) => void
-
 }
 
 type StateType = { editMode: boolean, status: string };
